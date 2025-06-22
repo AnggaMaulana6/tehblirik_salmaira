@@ -8,7 +8,7 @@
     outline: none;
     scroll-behavior: smooth;
     font-family: "Poppins", sans-serif;
-}
+} 
 
 :root {
     --primary:#6DBE45;
@@ -266,75 +266,23 @@ a:focus {
     color: rgba(255, 255, 255, .5);
 }
 /* Title */
-.text-animation{
-    font-size: 34px;
-    font-weight: 600;
-    min-width: 280px;
-}
-.text-animation span{
-    position: relative;
-}
-.text-animation span::before{
-    content: "Nyaman";
-    color: var(--primary);
-    animation: words 20s infinite;
-}
-.text-animation span::after{
-    content: "";
-    background-color: var(--primary);
-    position: absolute;
-    width: calc(100% + 8px);
-    height: 100%;
-    border-left: 3px solid var(--primary);
-    right: -8px;
-    animation: cursor 0.6s infinite, typing 20s steps(14) infinite;
-}
-@keyframes cursor{
-    to{
-        border-left: 2px solid var(--primary);
-    }
-}
-@keyframes words {
-    0%, 20% {
-        content: "Tempat Nyaman";
-    }
-    21%, 40% {
-        content: "Harga Terjangkau";
-    }
-    41%, 60% {
-        content: "Bahan Berkualitas"; 
-    }
-    61%, 80% {
-        content: "Kuliner Lokal";
-    }
-    81%, 100% {
-        content: "Tehnya Mantap";
-    }
+.text-animation {
+  font-size: 34px;
+  font-weight: 600;
+  min-height: 42px;
 }
 
-@keyframes typing {
-    0%, 10%, 15%, 30%, 35%, 50%, 55%, 70%, 75%, 90%, 95% {
-        width: 0;
-    }
-    5%, 20%, 25%, 40%, 45%, 60%, 65%, 80%, 85% {
-        width: calc(100% + 8px);
-    }
+#typedText::after {
+  content: '|';
+  animation: blink 1s infinite;
+  color: var(--primary);
 }
-.text-animation span::before{
-    content: "Nyaman";
-    color: var(--primary);
-    animation: words 20s infinite;
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
 }
-.text-animation span::after{
-    content: "";
-    background-color: var(--dark);
-    position: absolute;
-    width: calc(100% + 8px);
-    height: 100%;
-    border-left: 3px solid var(--primary);
-    right: -8px;
-    animation: cursor 0.6s infinite, typing 20s steps(14) infinite;
-}
+
 /* Section Titile */
 .section-title{
     position: relative;
@@ -390,14 +338,20 @@ a:focus {
 .nav-pills .nav-item .active{
     border-bottom: 2px solid var(--primary);
 }
-.zoom-hover {
+/* .zoom-hover {
   transition: transform 0.3s ease;
   cursor: zoom-in;
 }
 
 .zoom-hover:hover {
   transform: scale(1.2);
+} */
+ #modalImage {
+  width: 100%;
+  max-width: 90vw;
+  height: auto;
 }
+
 /* Tambahkan ini di CSS kamu */
 .nav-pills .nav-link.active {
     background-color: var(--light) !important;

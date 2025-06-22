@@ -28,7 +28,7 @@
     <!-- Custom Stylesheets -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-</head>
+</head> 
 <body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="80" tabindex="0">
     <!-- Navbar & hero -->
      <div class="container-xxl position-relative p-0">
@@ -36,7 +36,7 @@
             <a href="#home" class="navbar-brand d-flex align-items-center p-0">
                 <img src="img/teh_blirik.png" alt="Logo" class="logo-img me-2">
                 <h3 class="text-primary m-0 d-block fw-bold text-center text-sm-start" style="font-size: 1rem;">
-                Angkringan Teh Blirik Salmaira
+                Teh Blirik Salmaira
                 </h3>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -90,7 +90,9 @@
                             Angkringan Teh Blirik <span class="text-primary fw-bold">Salmaira</span>
                             </h1>
                                 
-                            <h3 class="text-animation wow animate__animated animate__fadeInLeftBig text-white fw-bold">  <span></span></h3>
+<h3 class="text-animation text-primary fw-bold wow animate__animated animate__fadeInLeft">
+  <span id="typedText">Tempat Nyaman</span>
+</h3>
 
                             <p class="wow animate__animated animate__fadeInLeft text-white mb-4 pb-2 mt-3">
                                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam fuga, deleniti molestias voluptate sapiente numquam, odio facilis necessitatibus ducimus non cumque nulla accusamus nostrum possimus assumenda aliquid pariatur culpa vel!
@@ -122,13 +124,47 @@
                             </a>
                         </div>
                         <div class="col-lg-6 text-lg-end overflow-hidden">
-                            <img src="./img/teh_blirik.png" alt="" width="450px" class="img-fluid">
+<img src="./img/teh_blirik.png" alt="" width="450px" class="img-fluid w-100" style="max-width: 450px;">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
      </div>
+<script>
+  const texts = ["Tempat Nyaman", "Harga Terjangkau", "Bahan Berkualitas", "Kuliner Lokal", "Tehnya Mantap"];
+  let index = 0;
+  let charIndex = 0;
+  const typedText = document.getElementById("typedText");
+
+  function type() {
+    if (charIndex <= texts[index].length) {
+      typedText.textContent = texts[index].substring(0, charIndex);
+      charIndex++;
+      setTimeout(type, 100); // kecepatan ketik per huruf
+    } else {
+      setTimeout(() => erase(), 2000); // jeda setelah ketik selesai
+    }
+  }
+
+  function erase() {
+    if (charIndex >= 0) {
+      typedText.textContent = texts[index].substring(0, charIndex);
+      charIndex--;
+      setTimeout(erase, 50); // kecepatan hapus per huruf
+    } else {
+      index = (index + 1) % texts.length;
+      setTimeout(type, 500); // jeda sebelum mulai ketik lagi
+    }
+  }
+
+  // Mulai animasi saat halaman siap
+  document.addEventListener("DOMContentLoaded", () => {
+    setTimeout(type, 500);
+  });
+</script>
+
+
     <!-- End Navbar & hero -->
 
      <!-- About Section Start -->
@@ -160,18 +196,18 @@
                             <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quod error dolorem aliquid recusandae nostrum alias, aliquam aut illo id cum quia pariatur obcaecati accusantium ea consectetur ipsum? Nostrum, placeat!</p>
                             <div class="tab-class row g-4 mb-4">
                                 <div class="col-6">
-                                    <div class="d-flex align-items-center border-start border-5 border-primary px-3">
+                                    <div class="d-flex align-items-center border-start border-5 border-primary px-1">
                                         <h1 class="flex-shrink-0 display-5 text-primary mb-0 fw-bold">2024</h1>
-                                        <div class="ps-4">
+                                        <div class="ps-3">
                                             <p class="mb-0">Tahun</p>
                                             <h6 class="text-uppercase mb-0 fw-bold">Berdiri</h6>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-6">
-                                    <div class="d-flex align-items-center border-start border-5 border-primary px-3">
+                                    <div class="d-flex align-items-center border-start border-5 border-primary px-1">
                                         <h1 class="flex-shrink-0 display-5 text-primary mb-0 fw-bold">60+</h1>
-                                        <div class="ps-4">
+                                        <div class="ps-3">
                                             <p class="mb-0">Total</p>
                                             <h6 class="text-uppercase mb-0 fw-bold">Menu</h6>
                                         </div>
@@ -578,19 +614,19 @@
 
                         <!-- Modal Detail -->
                         <div class="modal fade" id="modalDetail" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-dialog-centered">
-                            <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title fw-bold" id="modalLabel">Judul</h5>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+                            <div class="modal-dialog modal-dialog-centered">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title fw-bold" id="modalLabel">Judul</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+                                </div>
+                                <div class="modal-body text-center">
+                                    <img src="" alt="" id="modalImage" class="img-fluid rounded mb-3" style="width: 100%; height: auto;">
+                                    <p id="modalDesc"></p>
+                                    <h5 class="text-primary fw-bold" id="modalPrice">$0</h5>
+                                </div>
+                                </div>
                             </div>
-                            <div class="modal-body text-center">
-                                <img src="" alt="" id="modalImage" class="img-fluid rounded mb-3 zoom-hover" style="max-width: 400px;">
-                                <p id="modalDesc"></p>
-                                <h5 class="text-primary fw-bold" id="modalPrice">$0</h5>
-                            </div>
-                            </div>
-                        </div>
                         </div>
 
                         <div class="modal fade" id="zoomModal" tabindex="-1">
@@ -741,9 +777,9 @@
                                     </h5>
                                     <span>${item.desc}</span>
                                     <button
-                                        class="btn btn-sm btn-primary mt-2 lihat-detail-btn"
+                                        class="btn btn-sm btn-primary mt-2 lihat-detail-btn img-fluid"
                                         data-name="${item.name}"
-                                        data-price="${item.price}"
+                                        data-price="${item.price}" 
                                         data-image="${item.image}"
                                         data-best="${item.best || false}"
                                         data-desc="${item.desc}"
@@ -964,17 +1000,21 @@
                             <div class="ratio ratio-4x3 rounded shadow">
                             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1012518.4666744532!2d110.48899281452607!3d-7.558590400825678!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a2186509ee7a3%3A0x6df396155cacf3ef!2sAngkringan%20Teh%20Blirik%20Salmaira!5e0!3m2!1sid!2sid!4v1750439753185!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                             </div>
-                        <div class="d-flex gap-3 mt-5">
-                            <a href="https://wa.me/6288225401533?text=Halo%2C%20saya%20ingin%20booking%20meja%20di%20Angkringan%20Salmaira"
-                            class="btn btn-primary w-50 text-center"
-                            target="_blank" rel="noopener noreferrer">
-                            <i class="fab fa-whatsapp"> </i> Hubungi Kami
-                            </a>
-                            <a href="https://maps.app.goo.gl/VmCr5EcwDEaEESrs8" target="_blank" 
-                            class="btn btn-outline-light w-50 text-center">
-                            <i class="fa-solid fa-location-dot"></i> Lihat Lokasi
-                            </a>
-                        </div>
+                       <div class="d-flex flex-column flex-sm-row gap-3 mt-5">
+  <a href="https://wa.me/6288225401533?text=Halo%2C%20saya%20ingin%20booking%20meja%20di%20Angkringan%20Salmaira"
+     class="btn btn-primary w-100 text-nowrap text-center py-2"
+     target="_blank" rel="noopener noreferrer"
+     style="font-size: 0.9rem;">
+    <i class="fab fa-whatsapp"></i> Hubungi Kami
+  </a>
+  <a href="https://maps.app.goo.gl/VmCr5EcwDEaEESrs8"
+     class="btn btn-outline-light w-100 text-nowrap text-center py-2"
+     target="_blank"
+     style="font-size: 0.9rem;">
+    <i class="fa-solid fa-location-dot"></i> Lihat Lokasi
+  </a>
+</div>
+
                         </div>
                     </div>
 
