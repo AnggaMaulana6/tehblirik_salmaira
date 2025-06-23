@@ -343,23 +343,7 @@ a:focus {
   max-width: 90vw;
   height: auto;
 }
-@media (max-width: 576px) {
-    .modal-dialog.modal-scrollable {
-        max-height: 90vh;
-        margin: 1.75rem auto;
-    }
 
-    .modal-content {
-        max-height: 100%;
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .modal-body {
-        overflow-y: auto;
-    }
-}
 
 /* Tambahkan ini di CSS kamu */
 .nav-pills .nav-link.active {
