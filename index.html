@@ -80,6 +80,20 @@
                 });
             });
         </script>           
+        
+        <script>
+        // Tutup navbar saat klik di luar area navbar
+        document.addEventListener("click", function(event) {
+            const navbarCollapse = document.getElementById("navbarCollapse");
+            const navbarToggler = document.querySelector(".navbar-toggler");
+
+            const isClickInsideNavbar = navbarCollapse.contains(event.target) || navbarToggler.contains(event.target);
+
+            if (!isClickInsideNavbar && navbarCollapse.classList.contains("show")) {
+            new bootstrap.Collapse(navbarCollapse).toggle();
+            }
+        });
+        </script>
 
         <div class="section" id="home">
             <div class="container-xxl py-5 bg-dark hero-header mb-5">
@@ -90,28 +104,16 @@
                             Angkringan Teh Blirik <span class="text-primary fw-bold">Salmaira</span>
                             </h1>
                                 
-<h3 class="text-animation text-primary fw-bold wow animate__animated animate__fadeInLeft">
-  <span id="typedText">Tempat Nyaman</span>
-</h3>
+                            <h3 class="text-animation text-primary fw-bold wow animate__animated animate__fadeInLeft">
+                            <span id="typedText">Tempat Nyaman</span>
+                            </h3>
 
-                            <p class="wow animate__animated animate__fadeInLeft text-white mb-4 pb-2 mt-3">
-                                Lorem ipsum dolor sit amet consectetur adipisicing elit. Quibusdam fuga, deleniti molestias voluptate sapiente numquam, odio facilis necessitatibus ducimus non cumque nulla accusamus nostrum possimus assumenda aliquid pariatur culpa vel!
+                            <p class="wow animate__animated animate__fadeInLeft text-white  text-start mb-4 pb-2 mt-3">
+                            Selamat datang di Angkringan Teh Blirik Salmaira.
+                            Nikmati suasana hangat khas angkringan dengan menu yang lengkap dan harga bersahabat.
+                            Dari teh blirik legendaris hingga makanan tradisional semua disajikan dengan cinta.
+                            Temukan tempat terbaik untuk nongkrong, ngopi, dan ngobrol santai di Karanganyar.                            
                             </p>
-
-                            <div class="social-icons text-white wow animate__animated animate__lightSpeedInLeft mt-2 mb-4">
-                                <a href="https://github.com/AnggaMaulana6" class="btn btn-outline-light text-primary me-3 fs-4">
-                                    <i class="fab fa-whatsapp"></i>
-                                </a>
-                                <a href="https://www.instagram.com/ame_xzz?igsh=MTMydjh1dGF1bzFxYw==" class="btn btn-outline-light me-3 text-primary fs-4">
-                                    <i class="fab fa-instagram"></i>
-                                </a>
-                                <a href="https://www.instagram.com/ame_xzz?igsh=MTMydjh1dGF1bzFxYw==" class="btn btn-outline-light me-3 text-primary fs-4">
-                                    <i class="fab fa-tiktok"></i>
-                                </a>
-                                <a href="#" class="btn btn-outline-light text-primary fs-4">
-                                    <i class="fab fa-facebook"></i>
-                                </a>
-                            </div>
 
                             <a href="https://wa.me/6288225401533?text=Halo%2C%20saya%20ingin%20booking%20meja%20di%20Angkringan%20Salmaira"
                                 class="btn btn-primary py-sm-3 px-sm-5 me-2"
@@ -124,7 +126,7 @@
                             </a>
                         </div>
                         <div class="col-lg-6 text-lg-end overflow-hidden">
-<img src="./img/teh_blirik.png" alt="" width="450px" class="img-fluid w-100" style="max-width: 450px;">
+                            <img src="./img/teh_blirik.png" alt="" width="450px" class="img-fluid w-100" style="max-width: 450px;">
                         </div>
                     </div>
                 </div>
@@ -192,8 +194,17 @@
                         <div class="col-lg-6">
                             <h5 class="section-title ff-secondary text-start text-primary fw-normal">Tentang Kami</h5>
                             <h2 class="mb-4 fw-bold">Selamat datang di <img src="img/teh_blirik.png" class="img-about me-2" alt=""> Angkringan Teh Blirik Salmaira</h2>
-                            <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quod error dolorem aliquid recusandae nostrum alias, aliquam aut illo id cum quia pariatur obcaecati accusantium ea consectetur ipsum? Nostrum, placeat!</p>
-                            <p class="mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui quod error dolorem aliquid recusandae nostrum alias, aliquam aut illo id cum quia pariatur obcaecati accusantium ea consectetur ipsum? Nostrum, placeat!</p>
+<p class="mb-4">
+Angkringan Teh Blirik Salmaira hadir sebagai tempat berkumpul yang nyaman dengan nuansa tradisional khas Jawa.  
+Kami menyajikan berbagai menu angkringan dari bahan berkualitas dan harga yang ramah di kantong.  
+Terletak di Karanganyar, angkringan ini menawarkan suasana tenang dengan latar pemandangan indah Gunung Lawu.
+</p>
+
+<p class="mb-4">
+Dengan konsep sederhana namun hangat, kami ingin membawa pengalaman kuliner lokal yang autentik ke tengah masyarakat.  
+Nikmati sajian teh blirik legendaris, makanan rumahan, dan suasana penuh keakraban — setiap hari bersama kami.
+</p>
+
                             <div class="tab-class row g-4 mb-4">
                                 <div class="col-6">
                                     <div class="d-flex align-items-center border-start border-5 border-primary px-1">
@@ -998,26 +1009,38 @@
                             Temukan Kami di Google Maps
                             </h1>
                             <div class="ratio ratio-4x3 rounded shadow">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1012518.4666744532!2d110.48899281452607!3d-7.558590400825678!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a2186509ee7a3%3A0x6df396155cacf3ef!2sAngkringan%20Teh%20Blirik%20Salmaira!5e0!3m2!1sid!2sid!4v1750439753185!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1012518.4666744532!2d110.48899281452607!3d-7.558590400825678!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7a2186509ee7a3%3A0x6df396155cacf3ef!2sAngkringan%20Teh%20Blirik%20Salmaira!5e0!3m2!1sid!2sid!4v1750439753185!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                             </div>
-                       <div class="d-flex flex-column flex-sm-row gap-3 mt-5">
-  <a href="https://wa.me/6288225401533?text=Halo%2C%20saya%20ingin%20booking%20meja%20di%20Angkringan%20Salmaira"
-     class="btn btn-primary w-100 text-nowrap text-center py-2"
-     target="_blank" rel="noopener noreferrer"
-     style="font-size: 0.9rem;">
-    <i class="fab fa-whatsapp"></i> Hubungi Kami
-  </a>
-  <a href="https://maps.app.goo.gl/VmCr5EcwDEaEESrs8"
-     class="btn btn-outline-light w-100 text-nowrap text-center py-2"
-     target="_blank"
-     style="font-size: 0.9rem;">
-    <i class="fa-solid fa-location-dot"></i> Lihat Lokasi
-  </a>
-</div>
-
+                             <div class="social-icons text-white text-center wow animate__animated animate__lightSpeedInLeft mt-4 mb-4">
+                                <a href="https://github.com/AnggaMaulana6" class="btn btn-outline-light text-primary me-3 fs-4">
+                                    <i class="fab fa-whatsapp"></i>
+                                </a>
+                                <a href="https://www.instagram.com/ame_xzz?igsh=MTMydjh1dGF1bzFxYw==" class="btn btn-outline-light me-3 text-primary fs-4">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                <a href="https://www.instagram.com/ame_xzz?igsh=MTMydjh1dGF1bzFxYw==" class="btn btn-outline-light me-3 text-primary fs-4">
+                                    <i class="fab fa-tiktok"></i>
+                                </a>
+                                <a href="#" class="btn btn-outline-light text-primary fs-4">
+                                    <i class="fab fa-facebook"></i>
+                                </a>
+                            </div>
+                            <div class="d-flex flex-column flex-sm-row gap-3 mt-3">
+                                <a href="https://wa.me/6288225401533?text=Halo%2C%20saya%20ingin%20booking%20meja%20di%20Angkringan%20Salmaira"
+                                    class="btn btn-primary w-100 text-nowrap text-center py-2"
+                                    target="_blank" rel="noopener noreferrer"
+                                    style="font-size: 0.9rem;">
+                                    <i class="fab fa-whatsapp"></i> Hubungi Kami
+                                </a>
+                                <a href="https://maps.app.goo.gl/VmCr5EcwDEaEESrs8"
+                                    class="btn btn-outline-light w-100 text-nowrap text-center py-2"
+                                    target="_blank"
+                                    style="font-size: 0.9rem;">
+                                    <i class="fa-solid fa-location-dot"></i> Lihat Lokasi
+                                </a>
+                            </div>
                         </div>
                     </div>
-
                 </div>
             </div>
 
@@ -1093,7 +1116,7 @@
                             <small>Awokawok</small>
                             <div class="d-flex justify-content-center mt-3">
                                 <a href="" class="btn btn-square btn-primary mx-1"><i class="fab fa-facebook"></i></a>
-                                <a href="" class="btn btn-square btn-primary mx-1"><i class="fab fa-twitter"></i></a>
+                                <a href="" class="btn btn-square btn-primary mx-1"><i class="fab fa-tiktok"></i></a>
                                 <a href="" class="btn btn-square btn-primary mx-1"><i class="fab fa-instagram"></i></a>
                                 
                             </div>
@@ -1108,7 +1131,7 @@
                             <small>Awokawok</small>
                             <div class="d-flex justify-content-center mt-3">
                                 <a href="" class="btn btn-square btn-primary mx-1"><i class="fab fa-facebook"></i></a>
-                                <a href="" class="btn btn-square btn-primary mx-1"><i class="fab fa-twitter"></i></a>
+                                <a href="" class="btn btn-square btn-primary mx-1"><i class="fab fa-tiktok"></i></a>
                                 <a href="" class="btn btn-square btn-primary mx-1"><i class="fab fa-instagram"></i></a>
                             </div>
                         </div>
@@ -1122,7 +1145,7 @@
                             <small>Awokawok</small>
                             <div class="d-flex justify-content-center mt-3">
                                 <a href="" class="btn btn-square btn-primary mx-1"><i class="fab fa-facebook"></i></a>
-                                <a href="" class="btn btn-square btn-primary mx-1"><i class="fab fa-twitter"></i></a>
+                                <a href="" class="btn btn-square btn-primary mx-1"><i class="fab fa-tiktok"></i></a>
                                 <a href="" class="btn btn-square btn-primary mx-1"><i class="fab fa-instagram"></i></a>
                             </div>
                         </div>
@@ -1136,7 +1159,7 @@
                             <small>Awokawok</small>
                             <div class="d-flex justify-content-center mt-3">
                                 <a href="" class="btn btn-square btn-primary mx-1"><i class="fab fa-facebook"></i></a>
-                                <a href="" class="btn btn-square btn-primary mx-1"><i class="fab fa-twitter"></i></a>
+                                <a href="" class="btn btn-square btn-primary mx-1"><i class="fab fa-tiktok"></i></a>
                                 <a href="" class="btn btn-square btn-primary mx-1"><i class="fab fa-instagram"></i></a>
                             </div>
                         </div>
