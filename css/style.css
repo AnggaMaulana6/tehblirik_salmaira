@@ -117,14 +117,6 @@ a:focus {
     outline: none;
     transition: .5s;
 }
-.nav-pills .nav-link.active {
-    background-color: #c6e4c2; /* matcha soft */
-    color: #0f1728 !important; /* teks gelap biar kontras */
-    border-radius: 10px;
-    font-weight: bold;
-    box-shadow: 0 0 10px rgba(128, 182, 122, 0.3);
-    transition: all 0.3s ease;
-}
 
 .navbar a:hover,
 .navbar a.active {
@@ -351,6 +343,23 @@ a:focus {
   max-width: 90vw;
   height: auto;
 }
+@media (max-width: 576px) {
+    .modal-dialog.modal-scrollable {
+        max-height: 90vh;
+        margin: 1.75rem auto;
+    }
+
+    .modal-content {
+        max-height: 100%;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .modal-body {
+        overflow-y: auto;
+    }
+}
 
 /* Tambahkan ini di CSS kamu */
 .nav-pills .nav-link.active {
@@ -361,6 +370,27 @@ a:focus {
 .nav-pills .nav-link {
     color: orange;
 }
+.custom-tab-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px; /* Jarak antar tab, responsif dan rapi */
+}
+
+.custom-tab-wrapper .tab-item {
+    flex: 1 1 auto;
+    min-width: 120px;
+    max-width: 180px;
+}
+@media (max-width: 576px) {
+    .custom-tab-wrapper .tab-item {
+        flex: 1 1 45%; /* 2 tab per baris di HP */
+        max-width: none;
+    }
+    .custom-tab-wrapper .nav-link {
+        padding: 8px;
+    }
+}
+
 .tab-pane img {
     transition: transform 0.3s ease;
 }
