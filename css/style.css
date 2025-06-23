@@ -440,9 +440,7 @@ a:focus {
 }
 .social-icons {
   display: flex;
-  flex-wrap: nowrap;
   justify-content: center;
-  gap: 0.5rem;
   flex-shrink: 1;
   overflow-x: auto;
   padding: 0.5rem 0;
