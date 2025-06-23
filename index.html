@@ -133,38 +133,41 @@
             </div>
         </div>
      </div>
-<script>
-  const texts = ["Tempat Nyaman", "Harga Terjangkau", "Bahan Berkualitas", "Kuliner Lokal", "Tehnya Mantap"];
-  let index = 0;
-  let charIndex = 0;
-  const typedText = document.getElementById("typedText");
+    <script>
+    const texts = ["Tempat Nyaman", "Harga Terjangkau", "Bahan Berkualitas", "Kuliner Lokal", "Tehnya Mantap"];
+    let index = 0;
+    let charIndex = 0;
+    const typedText = document.getElementById("typedText");
 
-  function type() {
-    if (charIndex <= texts[index].length) {
-      typedText.textContent = texts[index].substring(0, charIndex);
-      charIndex++;
-      setTimeout(type, 100); // kecepatan ketik per huruf
-    } else {
-      setTimeout(() => erase(), 2000); // jeda setelah ketik selesai
+    function type() {
+        if (charIndex <= texts[index].length) {
+        typedText.textContent = texts[index].substring(0, charIndex);
+        charIndex++;
+        setTimeout(type, 100); // kecepatan ketik per huruf
+        } else {
+        setTimeout(() => erase(), 2000); // jeda setelah ketik selesai
+        }
     }
-  }
 
-  function erase() {
-    if (charIndex >= 0) {
-      typedText.textContent = texts[index].substring(0, charIndex);
-      charIndex--;
-      setTimeout(erase, 50); // kecepatan hapus per huruf
-    } else {
-      index = (index + 1) % texts.length;
-      setTimeout(type, 500); // jeda sebelum mulai ketik lagi
+    function erase() {
+        if (charIndex >= 0) {
+        typedText.textContent = texts[index].substring(0, charIndex);
+        charIndex--;
+        setTimeout(erase, 50); // kecepatan hapus per huruf
+        } else {
+        index = (index + 1) % texts.length;
+        setTimeout(type, 500); // jeda sebelum mulai ketik lagi
+        }
     }
-  }
 
-  // Mulai animasi saat halaman siap
-  document.addEventListener("DOMContentLoaded", () => {
-    setTimeout(type, 500);
-  });
-</script>
+    // Mulai animasi saat halaman siap
+    document.addEventListener("DOMContentLoaded", () => {
+        setTimeout(type, 500);
+    });
+    document.addEventListener('DOMContentLoaded', () => {
+        renderBookingSub();
+    });
+    </script>
 
 
     <!-- End Navbar & hero -->
@@ -622,30 +625,40 @@
                             </div>
                         </div>
 
-                        <div id="tab-booking" class="tab-pane fade">
-                            <input type="text" class="form-control mb-3" id="searchBooking" placeholder="Cari paket...">
+                   <div id="tab-booking" class="tab-pane fade">
+                            <div class="mb-3">
+                                <label for="bookingKategori" class="form-label fw-bold">Pilih Kategori Booking:</label>
+                                <select class="form-select" id="bookingKategori">
+                                    <option value="box">Paket Makan Box</option>
+                                    <option value="prasmanan">Paket Prasmanan</option>
+                                    <option value="snack">Snack Prasmanan</option>
+                                    <option value="supes">Sup & Es</option>
+                                </select>
+                            </div>
+
+                            <input type="text" class="form-control mb-3" id="searchBooking" placeholder="Cari menu...">
                             <div id="bookingList" class="row g-4"></div>
+
                             <div class="d-flex justify-content-center mt-3">
-                            <button class="btn btn-sm btn-outline-primary me-2" onclick="prevPage('booking')">Prev</button>
-                            <span id="pageInfoBooking" class="align-self-center"></span>
-                            <button class="btn btn-sm btn-outline-primary ms-2" onclick="nextPage('booking')">Next</button>
+                                <button class="btn btn-sm btn-outline-primary me-2" onclick="prevPage('booking')">Prev</button>
+                                <span id="pageInfoBooking" class="align-self-center"></span>
+                                <button class="btn btn-sm btn-outline-primary ms-2" onclick="nextPage('booking')">Next</button>
                             </div>
                         </div>
-
 
                         <!-- Modal Detail -->
                         <div class="modal fade" id="modalDetail" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
                             <div class="modal-dialog modal-dialog-centered" style="margin-top: 1vh;">
                                 <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title fw-bold" id="modalLabel">Judul</h5>
-                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
-                                    </div>
-                                    <div class="modal-body text-center">
-                                        <img src="" alt="" id="modalImage" class="img-fluid rounded mb-3" style="width: 100%; height: auto;">
-                                        <p id="modalDesc"></p>
-                                        <h5 class="text-primary fw-bold" id="modalPrice">$0</h5>
-                                    </div>
+                                <div class="modal-header">
+                                    <h5 class="modal-title fw-bold" id="modalLabel">Judul</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
+                                </div>
+                                <div class="modal-body text-center">
+                                    <img src="" alt="" id="modalImage" class="img-fluid rounded mb-3" style="width: 100%; height: auto;">
+                                    <p id="modalDesc"></p>
+                                    <h5 class="text-primary fw-bold" id="modalPrice">$0</h5>
+                                </div>
                                 </div>
                             </div>
                         </div>
@@ -769,7 +782,23 @@
                                 { name: '', price: '18.000', image: 'img/paketsoon.png', desc: 'Deskripsi' },
                             
                                 
+                            ],
+                            bookingBox: [
+                                { name: 'Paket Nasi Telur', price: '12.000', image: 'img/paketsoon.png', desc: 'Nasi + Gudangan/Oseng + Mie + Telur' },
+                                { name: 'Paket Hemat', price: '16.000', image: 'img/paketsoon.png', desc: 'Nasi + Ayam Kremes Paha + Lalapan + Urap' }
+                            ],
+                            bookingPrasmanan: [
+                                { name: 'Paket Prasmanan Ayam', price: '25.000', image: 'img/paketsoon.png', desc: 'Nasi, ayam goreng, sayur, sambal' },
+                                { name: 'Paket Prasmanan Daging', price: '30.000', image: 'img/paketsoon.png', desc: 'Nasi, daging sapi, sayur, sambal' }
+                            ],
+                            bookingSnack: [
+                                { name: 'Snack Box 1', price: '10.000', image: 'img/paketsoon.png', desc: 'Kue basah + air mineral' },
+                                { name: 'Snack Box 2', price: '12.000', image: 'img/paketsoon.png', desc: 'Kue basah + risoles + air mineral' }
+                            ],  bookingSupes: [
+                                { name: 'Es Kopyor', price: '10.000', image: 'img/paketsoon.png', desc: 'Es + Air' },
+                                { name: 'Sup Soto', price: '12.000', image: 'img/paketsoon.png', desc: ' air ' }
                             ]
+
                             };
 
                             const state = {
@@ -780,7 +809,7 @@
                             booking: { currentPage: 1, filteredData: [...dataPerKategori.booking] }
                             };
 
-                            const itemsPerPage = 6;
+                            const itemsPerPage = 8;
 
                             function renderKategori(kategori) {
                             const { currentPage, filteredData } = state[kategori];
@@ -885,6 +914,103 @@
                             document.getElementById(`search${capitalize(kategori)}`).addEventListener("input", () => filterKategori(kategori));
                             renderKategori(kategori); // render awal
                             });
+
+                            state.bookingSub = {
+                            currentPage: 1,
+                            filteredData: [...dataPerKategori.bookingBox],
+                            currentKategori: 'box'
+                        };
+
+                        document.getElementById('bookingKategori').addEventListener('change', function () {
+                            const selected = this.value;
+                            state.bookingSub.currentKategori = selected;
+                            state.bookingSub.filteredData = [...dataPerKategori['booking' + capitalize(selected)]];
+                            state.bookingSub.currentPage = 1;
+                            renderBookingSub();
+                        });
+
+                        function renderBookingSub() {
+                            const { currentPage, filteredData } = state.bookingSub;
+                            const listContainer = document.getElementById("bookingList");
+                            const pageInfo = document.getElementById("pageInfoBooking");
+                            listContainer.innerHTML = "";
+
+                            const start = (currentPage - 1) * itemsPerPage;
+                            const slice = filteredData.slice(start, start + itemsPerPage);
+
+                            if (slice.length === 0) {
+                                listContainer.innerHTML = `<p class="text-center">Tidak ada hasil</p>`;
+                                return;
+                            }
+
+                            slice.forEach(item => {
+                                const col = document.createElement("div");
+                                col.className = "col-lg-6";
+                                col.innerHTML = `
+                                <div class="d-flex align-items-center">
+                                    <img src="${item.image}" class="flex-shrink-0 img-fluid rounded w-25">
+                                    <div class="w-100 d-flex flex-column text-start ps-4">
+                                    <h5 class="d-flex justify-content-between border-bottom pb-2">
+                                        <span class="fw-bold">${item.name}</span>
+                                        <span class="text-primary fw-bold">${item.price}</span>
+                                    </h5>
+                                    <span>${item.desc}</span>
+                                    <button
+                                        class="btn btn-sm btn-primary mt-2 lihat-detail-btn img-fluid"
+                                        data-name="${item.name}"
+                                        data-price="${item.price}" 
+                                        data-image="${item.image}"
+                                        data-desc="${item.desc}"
+                                    >
+                                        Lihat Detail
+                                    </button>
+                                    </div>
+                                </div>
+                                `;
+                                listContainer.appendChild(col);
+                            });
+
+                            // Tambahkan event listener setelah elemen dirender
+                            listContainer.querySelectorAll('.lihat-detail-btn').forEach(button => {
+                                button.addEventListener('click', () => {
+                                    const name = button.getAttribute('data-name');
+                                    const price = button.getAttribute('data-price');
+                                    const image = button.getAttribute('data-image');
+                                    const desc = button.getAttribute('data-desc');
+                                    const best = button.getAttribute('data-best') === 'true';
+
+                                    openModal(name, price, image, desc, best);
+                                });
+                            });
+
+                            const totalPage = Math.ceil(filteredData.length / itemsPerPage);
+                            pageInfo.textContent = `Halaman ${currentPage} dari ${totalPage}`;
+                        }
+
+
+                        function prevPage(kategori) {
+                            if (kategori === 'booking') {
+                                if (state.bookingSub.currentPage > 1) {
+                                    state.bookingSub.currentPage--;
+                                    renderBookingSub();
+                                }
+                            } else {
+                                // existing prevPage logic
+                            }
+                        }
+
+                        function nextPage(kategori) {
+                            if (kategori === 'booking') {
+                                const totalPage = Math.ceil(state.bookingSub.filteredData.length / itemsPerPage);
+                                if (state.bookingSub.currentPage < totalPage) {
+                                    state.bookingSub.currentPage++;
+                                    renderBookingSub();
+                                }
+                            } else {
+                                // existing nextPage logic
+                            }
+                        }
+
 
                             let modalInstance = null;
 

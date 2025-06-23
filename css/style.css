@@ -344,7 +344,6 @@ a:focus {
   height: auto;
 }
 
-
 /* Tambahkan ini di CSS kamu */
 .nav-pills .nav-link.active {
     background-color: var(--light) !important;
@@ -353,26 +352,6 @@ a:focus {
 
 .nav-pills .nav-link {
     color: orange;
-}
-.custom-tab-wrapper {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px; /* Jarak antar tab, responsif dan rapi */
-}
-
-.custom-tab-wrapper .tab-item {
-    flex: 1 1 auto;
-    min-width: 120px;
-    max-width: 180px;
-}
-@media (max-width: 576px) {
-    .custom-tab-wrapper .tab-item {
-        flex: 1 1 45%; /* 2 tab per baris di HP */
-        max-width: none;
-    }
-    .custom-tab-wrapper .nav-link {
-        padding: 8px;
-    }
 }
 
 .tab-pane img {
