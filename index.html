@@ -938,29 +938,33 @@
                                     </h5>
 
                                         <span>${item.desc}</span>
-                                        <button
+                                       <button
                                         class="btn btn-sm btn-primary mt-2 lihat-detail-btn img-fluid"
                                         data-name="${item.name}"
                                         data-price="${item.price}" 
                                         data-image="${item.image}"
                                         data-best="${item.best || false}"
                                         data-desc="${item.desc}"
+                                        data-discon="${item.disconPrice || ''}"
                                         >
                                         Lihat Detail
                                         </button>
+
                                     </div>
                                     </div>
                                     `;
                                     listContainer.querySelectorAll('.lihat-detail-btn').forEach(button => {
-                                    button.addEventListener('click', () => {
-                                        const name = button.getAttribute('data-name');
-                                        const price = button.getAttribute('data-price');
-                                        const image = button.getAttribute('data-image');
-                                        const desc = button.getAttribute('data-desc');
-                                        const best = button.getAttribute('data-best') === 'true'; // <-- ini penting!
+                                  button.addEventListener('click', () => {
+                                    const name = button.getAttribute('data-name');
+                                    const price = button.getAttribute('data-price');
+                                    const image = button.getAttribute('data-image');
+                                    const desc = button.getAttribute('data-desc');
+                                    const best = button.getAttribute('data-best') === 'true';
+                                    const discon = button.getAttribute('data-discon') || null;
 
-                                        openModal(name, price, image, desc, best);
+                                    openModal(name, price, image, desc, best, discon);
                                     });
+
                                     });
 
                                     const totalPage = Math.ceil(filteredData.length / itemsPerPage);
@@ -1135,21 +1139,37 @@
 
                             let modalInstance = null;
 
-                            function openModal(name, price, image, desc, best) {
-                            // Jika best true, masukkan badge
+                           function openModal(name, price, image, desc, best, disconPrice = null) {
+                            // Label judul
                             const label = best
                                 ? `${name} <span class="badge bg-warning text-dark ms-2"><i class="fa fa-star"></i> Best</span>`
                                 : name;
 
                             document.getElementById("modalLabel").innerHTML = label;
-                            document.getElementById("modalPrice").textContent = price;
                             document.getElementById("modalImage").src = image;
                             document.getElementById("modalDesc").textContent = desc;
 
+                            // Isi harga (bisa diskon atau tidak)
+                            const priceContainer = document.getElementById("modalPrice");
+                        if (disconPrice) {
+                            priceContainer.innerHTML = `
+                                <div class="d-flex flex-column flex-md-row justify-content-center gap-2 align-items-center">
+                                    <span class="text-muted text-decoration-line-through small">Rp ${price}</span>
+                                    <span class="fw-bold text-danger">
+                                        <i class="fa fa-tags me-1"></i> Rp ${disconPrice}
+                                    </span>
+                                </div>
+                            `;
+                        } else {
+                            priceContainer.innerHTML = `<span class="text-primary fw-bold">Rp ${price}</span>`;
+                        }
+
+
+                            // Klik gambar → zoom
                             document.getElementById("modalImage").onclick = function () {
-                            document.getElementById("zoomImage").src = this.src;
-                            const zoom = new bootstrap.Modal(document.getElementById("zoomModal"));
-                            zoom.show();
+                                document.getElementById("zoomImage").src = this.src;
+                                const zoom = new bootstrap.Modal(document.getElementById("zoomModal"));
+                                zoom.show();
                             };
 
                             if (!modalInstance) {
@@ -1158,7 +1178,8 @@
                             }
 
                             modalInstance.show();
-                            }
+                        }
+
 
 
                             function closeModal() {
