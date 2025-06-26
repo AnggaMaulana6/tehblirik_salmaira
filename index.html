@@ -549,6 +549,9 @@
 
                         <div id="tab-daftar-menu" class="tab-pane fade show active">
                             <div class="row g-4">
+                                <div id="promoSectionDaftar" class="mb-4"></div>
+                                <h5 class="fw-bold text-primary mb-3 border-bottom pb-2">📋 Daftar Menu Lengkap</h5>
+
                                 <div class="col-md-4 col-sm-6">
                                     <img src="img/daftar-menu1.jpeg" alt="daftar-Menu 1" class="img-fluid rounded shadow-sm">
                                 </div>
@@ -573,22 +576,90 @@
                             </div>
                         </div>
 
-                        <!-- <script>
-                            document.querySelectorAll('.tab-pane').forEach(pane => {
-                            pane.classList.remove('show', 'active');
-                        });
+                       <script>
+                            function renderPromoDaftarMenu() {
+                                const promoItems = dataPerKategori.promo;
 
-                        document.querySelector('#tab-daftar-menu').classList.add('show', 'active');
-                        </script> -->
+                                const promoSection = document.getElementById("promoSectionDaftar");
+                                promoSection.innerHTML = "";
+
+                                if (promoItems.length === 0) return;
+
+                                const title = document.createElement("h5");
+                                title.className = "text-start fw-bold text-primary mb-3";
+                                title.innerHTML = `<i class="fa fa-star text-warning me-2"></i>Promo Bulan Ini`;
+                                promoSection.appendChild(title);
+
+                                const row = document.createElement("div");
+                                row.className = "row g-3";
+
+                                promoItems.forEach(item => {
+                                    const col = document.createElement("div");
+                                    col.className = "col-md-6 col-lg-4";
+                                    col.innerHTML = `
+                                    <div class="card shadow-sm border-0 h-100">
+                                        <img src="${item.image}" class="card-img-top" style="height: 180px; object-fit: cover;" alt="${item.name}">
+                                        <div class="card-body">
+                                            <h5 class="card-title fw-bold">${item.name}
+                                            ${item.best ? '<span class="badge bg-warning text-dark ms-2 mt-1"><i class="fa fa-star"></i> Best</span>' : ''}
+                                            </h5>
+                                            <p class="card-text">${item.desc}</p>
+                                            <h6 class="text-primary fw-bold">${item.price}</h6>
+                                            <button 
+                                                class="btn btn-sm btn-primary lihat-detail-btn mt-2"
+                                                data-name="${item.name}"
+                                                data-price="${item.price}"
+                                                data-image="${item.image}"
+                                                data-desc="${item.desc}"
+                                                data-best="${item.best}">
+                                                Lihat Detail
+                                            </button>
+                                        </div>
+                                    </div>
+                                    `;
+                                    row.appendChild(col);
+                                });
+
+                                promoSection.appendChild(row);
+
+                                // 🔁 Bind tombol
+                                setTimeout(() => {
+                                    document.querySelectorAll('#promoSectionDaftar .lihat-detail-btn').forEach(button => {
+                                        button.addEventListener('click', () => {
+                                            const name = button.getAttribute('data-name');
+                                            const price = button.getAttribute('data-price');
+                                            const image = button.getAttribute('data-image');
+                                            const desc = button.getAttribute('data-desc');
+                                            const best = button.getAttribute('data-best') === 'true';
+                                            const promo = button.getAttribute('data-promo') === 'true';
+                                            openModal(name, price, image, desc, best), promo;
+                                        });
+                                    });
+                                }, 50);
+                            }
+
+                            // 1. Saat user klik tab Daftar Menu
+                            document.querySelector('a[href="#tab-daftar-menu"]').addEventListener('shown.bs.tab', () => {
+                                renderPromoDaftarMenu();
+                            });
+
+                            // 2. Saat pertama kali halaman dibuka
+                            document.addEventListener('DOMContentLoaded', () => {
+                                const tabPane = document.getElementById("tab-daftar-menu");
+                                if (tabPane && tabPane.classList.contains("show") && tabPane.classList.contains("active")) {
+                                    renderPromoDaftarMenu();
+                                }
+                            });
+                        </script>
 
                         <!-- Tab Makanan -->
                         <div id="tab-makanan" class="tab-pane fade">
                             <input type="text" class="form-control mb-3" id="searchMakanan" placeholder="Cari makanan...">
                             <div id="makananList" class="row g-4"></div>
                             <div class="d-flex justify-content-center mt-3">
-                            <button class="btn btn-sm btn-outline-primary me-2" onclick="prevPage('makanan')">Prev</button>
+                            <button class="btn btn-sm btn-outline-primary btn-primary me-2" onclick="prevPage('makanan')">Prev</button>
                             <span id="pageInfoMakanan" class="align-self-center"></span>
-                            <button class="btn btn-sm btn-outline-primary ms-2" onclick="nextPage('makanan')">Next</button>
+                            <button class="btn btn-sm btn-outline-primary btn-primary ms-2" onclick="nextPage('makanan')">Next</button>
                             </div>
                         </div>
 
@@ -597,9 +668,9 @@
                             <input type="text" class="form-control mb-3" id="searchSnack" placeholder="Cari snack...">
                             <div id="snackList" class="row g-4"></div>
                             <div class="d-flex justify-content-center mt-3">
-                            <button class="btn btn-sm btn-outline-primary me-2" onclick="prevPage('snack')">Prev</button>
+                            <button class="btn btn-sm btn-outline-primary btn-primary me-2" onclick="prevPage('snack')">Prev</button>
                             <span id="pageInfoSnack" class="align-self-center"></span>
-                            <button class="btn btn-sm btn-outline-primary ms-2" onclick="nextPage('snack')">Next</button>
+                            <button class="btn btn-sm btn-outline-primary btn-primary ms-2" onclick="nextPage('snack')">Next</button>
                             </div>
                         </div>
 
@@ -608,9 +679,9 @@
                             <input type="text" class="form-control mb-3" id="searchMinuman" placeholder="Cari minuman...">
                             <div id="minumanList" class="row g-4"></div>
                             <div class="d-flex justify-content-center mt-3">
-                            <button class="btn btn-sm btn-outline-primary me-2" onclick="prevPage('minuman')">Prev</button>
+                            <button class="btn btn-sm btn-outline-primary btn-primary me-2" onclick="prevPage('minuman')">Prev</button>
                             <span id="pageInfoMinuman" class="align-self-center"></span>
-                            <button class="btn btn-sm btn-outline-primary ms-2" onclick="nextPage('minuman')">Next</button>
+                            <button class="btn btn-sm btn-outline-primary btn-primary ms-2" onclick="nextPage('minuman')">Next</button>
                             </div>
                         </div>
 
@@ -619,9 +690,9 @@
                             <input type="text" class="form-control mb-3" id="searchPaket" placeholder="Cari paket...">
                             <div id="paketList" class="row g-4"></div>
                             <div class="d-flex justify-content-center mt-3">
-                            <button class="btn btn-sm btn-outline-primary me-2" onclick="prevPage('paket')">Prev</button>
+                            <button class="btn btn-sm btn-outline-primary btn-primary me-2" onclick="prevPage('paket')">Prev</button>
                             <span id="pageInfoPaket" class="align-self-center"></span>
-                            <button class="btn btn-sm btn-outline-primary ms-2" onclick="nextPage('paket')">Next</button>
+                            <button class="btn btn-sm btn-outline-primary btn-primary ms-2" onclick="nextPage('paket')">Next</button>
                             </div>
                         </div>
 
@@ -640,9 +711,9 @@
                             <div id="bookingList" class="row g-4"></div>
 
                             <div class="d-flex justify-content-center mt-3">
-                                <button class="btn btn-sm btn-outline-primary me-2" onclick="prevPage('booking')">Prev</button>
+                                <button class="btn btn-sm btn-outline-primary btn-primary me-2" onclick="prevPage('booking')">Prev</button>
                                 <span id="pageInfoBooking" class="align-self-center"></span>
-                                <button class="btn btn-sm btn-outline-primary ms-2" onclick="nextPage('booking')">Next</button>
+                                <button class="btn btn-sm btn-outline-primary btn-primary ms-2" onclick="nextPage('booking')">Next</button>
                             </div>
                         </div>
 
@@ -683,14 +754,12 @@
                             </div>
                         </div>
 
-
-
                         <script>
                             const dataPerKategori = {
                             makanan: [
                                 { name: 'Nasi Goreng Seafood', price: '20.000', image: 'img/comingsoon2.png', desc: 'deskripsi' },
                                 { name: 'Nasi Goreng Biasa', price: '12.000', image: 'img/comingsoon2.png', desc: 'deskripsi' },
-                                { name: 'Nasi Goreng Telur', price: '17.000', image: 'img/comingsoon2.png', desc: 'deskripsi' },
+                                { name: 'Nasi Goreng Telur', price: '17.000', image: 'img/comingsoon2.png', desc: 'deskripsi', disconPrice:'15.000' },
                                 { name: 'Nasi Goreng Spesial', price: '18.000', image: 'img/comingsoon2.png', desc: 'deskripsi' },
                                 { name: 'Nasi Goreng Mawut', price: '15.000', image: 'img/comingsoon2.png', desc: 'deskripsi' },
                                 { name: 'Mie Goreng / Kuah Biasa', price: '12.000', image: 'img/comingsoon2.png', desc: 'deskripsi' },
@@ -703,14 +772,15 @@
                                 { name: 'Bihun Goreng / Kuah Spesial', price: '18.000', image: 'img/comingsoon2.png', desc: 'deskripsi' },
                                 { name: 'Bihun Goreng / Kuah Seafood', price: '20.000', image: 'img/comingsoon2.png', desc: 'deskripsi' },
                                 { name: 'Bihun Goreng / Kuah Seafood', price: '20.000', image: 'img/comingsoon2.png', desc: 'deskripsi' },
-                                { name: 'Ingkung Ayam Jawa Goreng', price: '90.000', image: 'img/comingsoon2.png', desc: 'deskripsi', best: true },
+                                { name: 'Ingkung Ayam Jawa Goreng', price: '90.000', image: 'img/comingsoon2.png', desc: 'deskripsi', promo:true },
+                                { name: 'Ingkung Ayam Jawa Goreng', price: '90.000', image: 'img/comingsoon2.png', desc: 'deskripsi', best: true, promo:true },
                                 { name: 'Ingkung Ayam Jawa Bakar', price: '95.000', image: 'img/comingsoon2.png', desc: 'deskripsi' },
                                 { name: 'Ingkung Ayam Potong Goreng', price: '80.000', image: 'img/comingsoon2.png', desc: 'deskripsi' },
                                 { name: 'Ingkung Ayam Potong Bakar', price: '85.000', image: 'img/comingsoon2.png', desc: 'deskripsi' },
                                 // ...dst
                             ],
                             snack: [
-                                { name: 'Mendoan', price: '5.000', image: 'img/comingsoon5.png', desc: 'Deskripsi' },
+                                { name: 'Mendoan', price: '5.000', image: 'img/comingsoon5.png', desc: 'Deskripsi', disconPrice: '3.000' },
                                 { name: 'Kentang Goreng', price: '7.000', image: 'img/comingsoon5.png', desc: 'Deskripsi' },
                                 { name: 'Singkong Goreng', price: '5.000', image: 'img/comingsoon5.png', desc: 'Deskripsi' },
                                 { name: 'Jamur Crispy', price: '5.000', image: 'img/comingsoon5.png', desc: 'Deskripsi' },
@@ -721,9 +791,9 @@
                                 // ...
                             ],
                             minuman: [
-                                { name: 'Teh Blirik Spesial', price: '12.000', image: 'img/comingsoon4.png', desc: 'Deskripsi', best:true },
-                                { name: 'Teh Panas', price: '3.000', image: 'img/comingsoon4.png', desc: 'Deskripsi', },
-                                { name: 'Es Teh Manis', price: '4.000', image: 'img/comingsoon4.png', desc: 'Deskripsi', },
+                                { name: 'Teh Blirik Spesial', price: '12.000', image: 'img/comingsoon4.png', desc: 'Deskripsi', best:true, promo : true, disconPrice:'10.000'},
+                                { name: 'Teh Panas', price: '3.000', image: 'img/comingsoon4.png', desc: 'Deskripsi', promo: true },
+                                { name: 'Es Teh Manis', price: '4.000', image: 'img/comingsoon4.png', desc: 'Deskripsi', promo:true },
                                 { name: 'Jeruk Panas', price: '4.000', image: 'img/comingsoon4.png', desc: 'Deskripsi', },
                                 { name: 'Es Jeruk Manis', price: '5.000', image: 'img/comingsoon4.png', desc: 'Deskripsi', },
                                 { name: 'Teh Kampul Panas', price: '4.000', image: 'img/comingsoon4.png', desc: 'Deskripsi', },
@@ -731,8 +801,8 @@
                                 { name: 'Susu Putih/Cokelat Panas', price: '5.000', image: 'img/comingsoon4.png', desc: 'Deskripsi', },
                                 { name: 'Es Susu Putih/Cokelat', price: '5.000', image: 'img/comingsoon4.png', desc: 'Deskripsi', },
                                 { name: 'Kopi Hitam', price: '4.000', image: 'img/comingsoon4.png', desc: 'Deskripsi', },
-                                { name: 'Kopi Susu', price: '6.000', image: 'img/comingsoon4.png', desc: 'Deskripsi', },
-                                { name: 'White Coffe/Good Day/Bang-Bang/Chocolatos', price: '6.000', image: 'img/comingsoon4.png', desc: 'Deskripsi', },
+                                { name: 'Kopi Susu', price: '6.000', image: 'img/comingsoon4.png', desc: 'Deskripsi',disconPrice:'4000' },
+                                { name: 'White Coffe/Good Day/Bang-Bang/Chocolatos', price: '6.000', image: 'img/comingsoon4.png', desc: 'Deskripsi', best:true},
                                 { name: 'Teh Tarik Panas/Es', price: '7.000', image: 'img/comingsoon4.png', desc: 'Deskripsi', },
                                 { name: 'Wedang Jahe Emprit', price: '8.000', image: 'img/comingsoon4.png', desc: 'Deskripsi', },
                                 { name: 'Teh Jahe Emprit', price: '6.000', image: 'img/comingsoon4.png', desc: 'Deskripsi', },
@@ -771,18 +841,7 @@
                                 { name: 'Bubur Opor', price: ' ', image: 'img/paketsoon.png', desc: 'Deskripsi' },
                                 // ...
                             ],
-                            booking: [
-                                { name: 'Paket Nasi Telur', price: '12.000', image: 'img/paketsoon.png', desc: 'Nasi + Gudangan/Oseng + Mie + Telur' },
-                                { name: 'Paket Hemat', price: '16.000', image: 'img/paketsoon.png', desc: 'Nasi + Ayam Kremes Paha + Lalapan + Urap' },
-                                { name: 'Paket Lele Kremes', price: '15.000', image: 'img/paketsoon.png', desc: 'Nasi + Lele Kremes + Lalapan + Urap' },
-                                { name: 'Paket Ayam Kremes', price: '20.000', image: 'img/paketsoon.png', desc: 'Nasi + Ayam Kremes + Lalapan + Urap' },
-                                { name: 'Paket Nila Kremes', price: '22.000', image: 'img/paketsoon.png', desc: 'Nasi + Nila Kremes + Lalapan + Urap' },
-                                { name: '', price: '18.000', image: 'img/paketsoon.png', desc: 'Deskripsi' },
-                                { name: '', price: '18.000', image: 'img/paketsoon.png', desc: 'Deskripsi' },
-                                { name: '', price: '18.000', image: 'img/paketsoon.png', desc: 'Deskripsi' },
-                            
-                                
-                            ],
+
                             bookingBox: [
                                 { name: 'Paket Nasi Telur', price: '12.000', image: 'img/paketsoon.png', desc: 'Nasi + Gudangan/Oseng + Mie + Telur' },
                                 { name: 'Paket Hemat', price: '16.000', image: 'img/paketsoon.png', desc: 'Nasi + Ayam Kremes Paha + Lalapan + Urap' }
@@ -794,9 +853,24 @@
                             bookingSnack: [
                                 { name: 'Snack Box 1', price: '10.000', image: 'img/paketsoon.png', desc: 'Kue basah + air mineral' },
                                 { name: 'Snack Box 2', price: '12.000', image: 'img/paketsoon.png', desc: 'Kue basah + risoles + air mineral' }
-                            ],  bookingSupes: [
+                            ],  
+                            bookingSupes: [
                                 { name: 'Es Kopyor', price: '10.000', image: 'img/paketsoon.png', desc: 'Es + Air' },
-                                { name: 'Sup Soto', price: '12.000', image: 'img/paketsoon.png', desc: ' air ' }
+                                { name: 'Sup Soto', price: '12.000', image: 'img/paketsoon.png', desc: ' air ' },
+                                { name: 'Es Kopyor', price: '10.000', image: 'img/paketsoon.png', desc: 'Es + Air' },
+                                { name: 'Sup Soto', price: '12.000', image: 'img/paketsoon.png', desc: ' air ' },
+                                { name: 'Es Kopyor', price: '10.000', image: 'img/paketsoon.png', desc: 'Es + Air' },
+                                { name: 'Sup Soto', price: '12.000', image: 'img/paketsoon.png', desc: ' air ' },
+                                { name: 'Es Kopyor', price: '10.000', image: 'img/paketsoon.png', desc: 'Es + Air' },
+                                { name: 'Sup Soto', price: '12.000', image: 'img/paketsoon.png', desc: ' air ' },
+                                { name: 'Es Kopyor', price: '10.000', image: 'img/paketsoon.png', desc: 'Es + Air' },
+                                { name: 'Sup Soto', price: '12.000', image: 'img/paketsoon.png', desc: ' air ' },
+                            ],
+                            promo: [
+                                { name: 'Teh Blirik Spesial', price: '12.000', image: 'img/comingsoon4.png', desc: 'Deskripsi', best:true, promo : true },
+                                { name: 'Ingkung Ayam Jawa Goreng', price: '90.000', image: 'img/comingsoon2.png', desc: 'deskripsi', promo:true },
+                                { name: 'Ingkung Ayam Jawa Goreng', price: '90.000', image: 'img/comingsoon2.png', desc: 'deskripsi', best: true, promo:true },
+
                             ]
 
                             };
@@ -806,98 +880,141 @@
                             snack: { currentPage: 1, filteredData: [...dataPerKategori.snack] },
                             minuman: { currentPage: 1, filteredData: [...dataPerKategori.minuman] },
                             paket: { currentPage: 1, filteredData: [...dataPerKategori.paket] },
-                            booking: { currentPage: 1, filteredData: [...dataPerKategori.booking] }
                             };
 
                             const itemsPerPage = 8;
 
                             function renderKategori(kategori) {
-                            const { currentPage, filteredData } = state[kategori];
-                            const listContainer = document.getElementById(`${kategori}List`);
-                            const pageInfo = document.getElementById(`pageInfo${capitalize(kategori)}`);
-                            listContainer.innerHTML = "";
+                                const { currentPage, filteredData } = state[kategori];
+                                const listContainer = document.getElementById(`${kategori}List`);
+                                const pageInfo = document.getElementById(`pageInfo${capitalize(kategori)}`);
+                                listContainer.innerHTML = "";
 
-                            const start = (currentPage - 1) * itemsPerPage;
-                            const slice = filteredData.slice(start, start + itemsPerPage);
+                                const sortedData = [...filteredData].sort((a, b) => {
+                                    const getPriority = (item) => {
+                                        const isBest = !!item.best;
+                                        const isDiscon = !!item.disconPrice;
 
-                            if (slice.length === 0) {
-                                listContainer.innerHTML = `<p class="text-center">Tidak ada hasil</p>`;
-                                return;
-                            }
+                                        if (isBest && isDiscon) return 3;  // 🥇 paling tinggi
+                                        if (isDiscon) return 2;            // 🥈 diskon saja
+                                        if (isBest) return 1;              // 🥉 best saja
+                                        return 0;                          // biasa
+                                    };
 
-                            slice.forEach(item => {
-                                const col = document.createElement("div");
-                                col.className = "col-lg-6";
-                                col.innerHTML = `
-                                <div class="d-flex align-items-center">
+                                    return getPriority(b) - getPriority(a); // descending
+                                });
+
+
+                                const start = (currentPage - 1) * itemsPerPage;
+                                const slice = sortedData.slice(start, start + itemsPerPage);
+
+                                if (slice.length === 0) {
+                                    listContainer.innerHTML = `<p class="text-center">Tidak ada hasil</p>`;
+                                    pageInfo.textContent = `Halaman 0 dari ${totalPage}`;
+                                    return;
+                                }
+
+                                slice.forEach(item => {
+                                    const col = document.createElement("div");
+                                    col.className = "col-lg-6";
+                                   col.innerHTML = `
+                                    <div class="d-flex align-items-center">
                                     <img src="${item.image}" class="flex-shrink-0 img-fluid rounded w-25">
                                     <div class="w-100 d-flex flex-column text-start ps-4">
-                                    <h5 class="d-flex justify-content-between border-bottom pb-2">
-                                        <span class="fw-bold">${item.name}
-                                        ${item.best ? `<span class="badge bg-warning text-dark ms-2 mt-2 mb-1"><i class="fa fa-star"></i> Best </span>` : ''}
-                                        </span>
-                                        <span class="text-primary fw-bold">${item.price}</span>
+                                    <h5 class="d-flex flex-column flex-md-row justify-content-between border-bottom pb-2">
+                                    <span class="fw-bold">${item.name}
+                                        ${item.best ? `<span class="badge bg-warning text-dark ms-2 mt-1 mb-1"><i class="fa fa-star"></i> Best</span>` : ''}
+                                        ${item.disconPrice ? `<span class="badge bg-danger text-white ms-2"><i class="fa fa-tags"></i> Diskon</span>` : ''}
+                                    </span>
+                                    ${
+                                    item.disconPrice
+                                        ? `<div class="d-flex flex-column flex-md-row align-items-md-end align-items-start gap-2">
+                                                <span class="small text-muted text-decoration-line-through"> ${item.price}</span>
+                                                <span class="fw-bold text-danger"> ${item.disconPrice}</span>
+                                            </div>`
+                                        : `<span class="text-primary fw-bold"> ${item.price}</span>`
+                                    }
+
                                     </h5>
-                                    <span>${item.desc}</span>
-                                    <button
+
+                                        <span>${item.desc}</span>
+                                        <button
                                         class="btn btn-sm btn-primary mt-2 lihat-detail-btn img-fluid"
                                         data-name="${item.name}"
                                         data-price="${item.price}" 
                                         data-image="${item.image}"
                                         data-best="${item.best || false}"
                                         data-desc="${item.desc}"
-                                    >
+                                        >
                                         Lihat Detail
-                                    </button>
+                                        </button>
                                     </div>
-                                </div>
-                                `;
-                                listContainer.querySelectorAll('.lihat-detail-btn').forEach(button => {
-                                button.addEventListener('click', () => {
-                                    const name = button.getAttribute('data-name');
-                                    const price = button.getAttribute('data-price');
-                                    const image = button.getAttribute('data-image');
-                                    const desc = button.getAttribute('data-desc');
-                                    const best = button.getAttribute('data-best') === 'true'; // <-- ini penting!
+                                    </div>
+                                    `;
+                                    listContainer.querySelectorAll('.lihat-detail-btn').forEach(button => {
+                                    button.addEventListener('click', () => {
+                                        const name = button.getAttribute('data-name');
+                                        const price = button.getAttribute('data-price');
+                                        const image = button.getAttribute('data-image');
+                                        const desc = button.getAttribute('data-desc');
+                                        const best = button.getAttribute('data-best') === 'true'; // <-- ini penting!
 
-                                    openModal(name, price, image, desc, best);
-                                });
+                                        openModal(name, price, image, desc, best);
+                                    });
+                                    });
+
+                                    const totalPage = Math.ceil(filteredData.length / itemsPerPage);
+                                    pageInfo.textContent = `Halaman ${currentPage} dari ${totalPage}`;
+
+                                listContainer.appendChild(col);
                                 });
 
                                 const totalPage = Math.ceil(filteredData.length / itemsPerPage);
                                 pageInfo.textContent = `Halaman ${currentPage} dari ${totalPage}`;
-
-                            listContainer.appendChild(col);
-                            });
-
-                            const totalPage = Math.ceil(filteredData.length / itemsPerPage);
-                            pageInfo.textContent = `Halaman ${currentPage} dari ${totalPage}`;
                             }
 
                             function nextPage(kategori) {
-                            const totalPage = Math.ceil(state[kategori].filteredData.length / itemsPerPage);
-                            if (state[kategori].currentPage < totalPage) {
-                                state[kategori].currentPage++;
-                                renderKategori(kategori);
-                                scrollTo(`#tab-${kategori}`);
-                            }
+                                if (kategori === 'booking') {
+                                    const totalPage = Math.ceil(state.bookingSub.filteredData.length / itemsPerPage);
+                                    if (state.bookingSub.currentPage < totalPage) {
+                                        state.bookingSub.currentPage++;
+                                        renderBookingSub();
+                                        scrollTo(`#tab-${kategori}`);
+                                    }
+                                } else {
+                                    const totalPage = Math.ceil(state[kategori].filteredData.length / itemsPerPage);
+                                    if (state[kategori].currentPage < totalPage) {
+                                        state[kategori].currentPage++;
+                                        renderKategori(kategori);
+                                        scrollTo(`#tab-${kategori}`);
+                                    }
+                                }
                             }
 
                             function prevPage(kategori) {
-                            if (state[kategori].currentPage > 1) {
-                                state[kategori].currentPage--;
-                                renderKategori(kategori);
-                                scrollTo(`#tab-${kategori}`);
-                            }
+                                if (kategori === 'booking') {
+                                    if (state.bookingSub.currentPage > 1) {
+                                        state.bookingSub.currentPage--;
+                                        renderBookingSub();
+                                        scrollTo(`#tab-${kategori}`);
+                                    }
+                                } else {
+                                    if (state[kategori].currentPage > 1) {
+                                        state[kategori].currentPage--;
+                                        renderKategori(kategori);
+                                        scrollTo(`#tab-${kategori}`);
+                                    }
+                                }
                             }
 
-                            function filterKategori(kategori) {
-                            const keyword = document.getElementById(`search${capitalize(kategori)}`).value.toLowerCase();
-                            state[kategori].filteredData = dataPerKategori[kategori].filter(item =>
-                                item.name.toLowerCase().includes(keyword)
-                            );
-                            state[kategori].currentPage = 1;
-                            renderKategori(kategori);
+
+                                function filterKategori(kategori) {
+                                const keyword = document.getElementById(`search${capitalize(kategori)}`).value.toLowerCase();
+                                state[kategori].filteredData = dataPerKategori[kategori].filter(item =>
+                                    item.name.toLowerCase().includes(keyword)
+                                );
+                                state[kategori].currentPage = 1;
+                                renderKategori(kategori);
                             }
 
                             function capitalize(str) {
@@ -910,7 +1027,7 @@
                             }
 
                             // Daftarkan event pencarian
-                            ["makanan", "snack", "minuman", "paket", "booking"].forEach(kategori => {
+                            ["makanan", "snack", "minuman", "paket", ].forEach(kategori => {
                             document.getElementById(`search${capitalize(kategori)}`).addEventListener("input", () => filterKategori(kategori));
                             renderKategori(kategori); // render awal
                             });
@@ -920,6 +1037,7 @@
                             filteredData: [...dataPerKategori.bookingBox],
                             currentKategori: 'box'
                         };
+                        renderBookingSub();
 
                         document.getElementById('bookingKategori').addEventListener('change', function () {
                             const selected = this.value;
@@ -928,6 +1046,33 @@
                             state.bookingSub.currentPage = 1;
                             renderBookingSub();
                         });
+
+                        document.getElementById("searchBooking").addEventListener("input", function () {
+                            const keyword = this.value.toLowerCase();
+                            const kategori = state.bookingSub.currentKategori;
+                            state.bookingSub.filteredData = dataPerKategori['booking' + capitalize(kategori)].filter(item =>
+                                item.name.toLowerCase().includes(keyword)
+                            );
+                            state.bookingSub.currentPage = 1;
+                            renderBookingSub();
+                        });
+
+                        document.getElementById('searchBooking').addEventListener('change', function () {
+                            const selected = this.value;
+                            state.bookingSub.currentKategori = selected;
+
+                            const searchInput = document.getElementById('searchBooking');
+                            if (searchInput) {
+                                searchInput.value = ''; // reset isi
+                                // trigger ulang pencarian supaya data juga direset
+                                state.bookingSub.filteredData = [...dataPerKategori['booking' + capitalize(selected)]];
+                                state.bookingSub.currentPage = 1;
+                                renderBookingSub();
+                            }
+                        });
+
+                        
+
 
                         function renderBookingSub() {
                             const { currentPage, filteredData } = state.bookingSub;
@@ -985,30 +1130,6 @@
 
                             const totalPage = Math.ceil(filteredData.length / itemsPerPage);
                             pageInfo.textContent = `Halaman ${currentPage} dari ${totalPage}`;
-                        }
-
-
-                        function prevPage(kategori) {
-                            if (kategori === 'booking') {
-                                if (state.bookingSub.currentPage > 1) {
-                                    state.bookingSub.currentPage--;
-                                    renderBookingSub();
-                                }
-                            } else {
-                                // existing prevPage logic
-                            }
-                        }
-
-                        function nextPage(kategori) {
-                            if (kategori === 'booking') {
-                                const totalPage = Math.ceil(state.bookingSub.filteredData.length / itemsPerPage);
-                                if (state.bookingSub.currentPage < totalPage) {
-                                    state.bookingSub.currentPage++;
-                                    renderBookingSub();
-                                }
-                            } else {
-                                // existing nextPage logic
-                            }
                         }
 
 
